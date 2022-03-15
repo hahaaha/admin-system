@@ -1,0 +1,11 @@
+.site {
+    &-layout {
+        height: 100vh;
+        overflow: auto;
+        &-sider {
+            height: 100vh;
+            overflow-x: hidden;
+        }
+    }
+
+}
