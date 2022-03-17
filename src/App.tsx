@@ -1,30 +1,29 @@
-import React from 'react';
-import { Layout, Menu } from 'antd';
-import { Routes, Route, useNavigate  } from 'react-router-dom';
-import { sidebars } from './config';
-import Home from './components/home';
-import Editor from './components/editor'
-import IconPage from './pages/icon'
-import BackTopPage from './pages/backTop'
+import React, { useState } from 'react'
+import { Layout, Menu } from 'antd'
+import { useNavigate } from 'react-router-dom'
+
+import { sidebars } from './config'
+import MainArea from './components/mainArea'
 import './App.scss'
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { SubMenu } = Menu
+const { Header, Content, Sider } = Layout
 
 const App: React.FC<{}> = () => {
-    const navigate = useNavigate();
-
-    const menuClick = ({ key }: { key: string; }) => {
+    const navigate = useNavigate()
+    const [tabActiveKey, setTabActiveKey] = useState('home')
+    const menuClick = ({ key }: { key: string }) => {
+        setTabActiveKey(key)
         navigate(`/${key}`)
     }
 
     const setMenu = () => {
         return sidebars.map((sidebar) => {
-            const { title, key, icon, children } = sidebar;
-            let subMenu;
+            const { title, key, icon, children } = sidebar
+            let subMenu
             if (children) {
                 const menuItem = children.map((child) => {
-                    const { title, key } = child;
+                    const { title, key } = child
                     return (
                         <Menu.Item
                             title={title}
@@ -32,7 +31,7 @@ const App: React.FC<{}> = () => {
                         >
                             {title}
                         </Menu.Item>)
-                });
+                })
                 subMenu = (
                     <SubMenu
                         key={key}
@@ -41,7 +40,7 @@ const App: React.FC<{}> = () => {
                     >
                         {menuItem}
                     </SubMenu>
-                );
+                )
             } else {
                 subMenu = (
                     <Menu.Item
@@ -64,7 +63,7 @@ const App: React.FC<{}> = () => {
                 <Menu
                     theme="dark"
                     mode="inline"
-                    defaultSelectedKeys={['editor']}
+                    defaultSelectedKeys={['home']}
                     defaultOpenKeys={['sub1']}
                     style={{ height: '100%', borderRight: 0 }}
                     onSelect={menuClick}
@@ -73,8 +72,8 @@ const App: React.FC<{}> = () => {
                 </Menu>
             </Sider>
             <Layout className="site-layout">
-                <Header 
-                    className="site-layout-header" 
+                <Header
+                    className="site-layout-header"
                     style={{ padding: 0, backgroundColor: '#fff' }}
                 />
                 <Content
@@ -84,16 +83,11 @@ const App: React.FC<{}> = () => {
                         minHeight: 500,
                     }}
                 >
-                    <Routes>
-                        <Route path="/home" element={<Home />} />
-                        <Route path="/editor" element={<Editor />} />
-                        <Route path="/icon" element={<IconPage />} />
-                        <Route path="/backTop" element={<BackTopPage />} />
-                    </Routes>
+                    <MainArea activeKey={tabActiveKey} setTabActiveKey={setTabActiveKey} />
                 </Content>
             </Layout>
         </Layout>
-    );
+    )
 }
 
-export default App;
+export default App
