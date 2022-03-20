@@ -1,11 +1,10 @@
 import { Tabs } from 'antd'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Router from '../router'
-
+import Router from '../../router'
+import './index.scss'
 
 const { TabPane } = Tabs
-
 
 const MainArea: React.FC<{ activeKey: string, setTabActiveKey: (activeKey: string) => void }> = (props) => {
     const navigate = useNavigate()
@@ -55,9 +54,11 @@ const MainArea: React.FC<{ activeKey: string, setTabActiveKey: (activeKey: strin
     return (
         <Tabs
             type="editable-card"
+            className="main-area"
             onChange={onChange}
             activeKey={activeKey}
             onEdit={onEdit}
+            size="small"
             hideAdd
         >
             {tabPane.map((pane) => (
@@ -65,7 +66,9 @@ const MainArea: React.FC<{ activeKey: string, setTabActiveKey: (activeKey: strin
                     tab={pane.title}
                     key={pane.key}
                     closable={pane.closable}>
-                    <Router />
+                    <div className='main-area-content'>
+                        <Router />
+                    </div>
                 </TabPane>
             ))}
         </Tabs>

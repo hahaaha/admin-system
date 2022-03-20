@@ -1,0 +1,13 @@
+.header-area {
+    display: flex;
+    border-bottom: 1px rgba(107, 105, 105, 0.1) solid; // 后续加浅阴影效果
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+    &-name{
+        margin-left: 14px;
+    }
+    &-avatar {
+        margin-right: 20px;
+    }
+}

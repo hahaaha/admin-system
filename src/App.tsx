@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Layout, Menu } from 'antd'
 import { useNavigate } from 'react-router-dom'
-
+import MainArea from './components/mainArea/mainArea'
+import HeaderArea from './headerArea/headerArea'
 import { sidebars } from './config'
-import MainArea from './components/mainArea'
 import './App.scss'
 
 const { SubMenu } = Menu
@@ -75,10 +75,11 @@ const App: React.FC<{}> = () => {
                 <Header
                     className="site-layout-header"
                     style={{ padding: 0, backgroundColor: '#fff' }}
-                />
+                >
+                    <HeaderArea />
+                </Header>
                 <Content
                     style={{
-                        padding: 24,
                         margin: 0,
                         minHeight: 500,
                     }}
